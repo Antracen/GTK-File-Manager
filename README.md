@@ -8,4 +8,4 @@ This is a file browser made using Python 3 with the graphics library GTK+ 3. I c
 
 # Screenshot
 
-![Application screenshot](screenshot.png)
+![Application screenshot](Screenshot.png)
