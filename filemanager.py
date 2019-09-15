@@ -41,7 +41,7 @@ class FileManager(Gtk.Window):
 		filename_col.pack_start(pixbuf_renderer, expand=False)
 		filename_col.pack_start(text_renderer, expand=True)
 		filename_col.set_resizable(True)
-		filename_col.set_sort_column_id(0)
+		filename_col.set_sort_column_id(1)
 		filename_col.add_attribute(pixbuf_renderer, "icon_name", 0)
 		filename_col.add_attribute(text_renderer, "text", 1)
 		self.file_window.append_column(filename_col)
@@ -83,7 +83,21 @@ class FileManager(Gtk.Window):
 		for file in os.listdir(os.getcwd()):
 			if self.show_hidden_files or not file.startswith('.'):
 				file_info = os.stat(file)
-				icon = "folder" if os.path.isdir(file) else "text-x-generic"
+				icon = "text-x-generic"
+				if os.path.isdir(file):
+					icon = "folder"
+				else:
+					extension = file.split(".")[-1]
+					switcher = {
+						"png": "image-x-generic",
+						"mkv": "video-x-generic",
+						"mp3": "audio-x-generic",
+						"jpg": "image-x-generic",
+						"zip": "package-x-generic",
+						"zip": "package-x-generic",
+						"cpp": "text-x-script",
+					}
+					icon = switcher.get(extension, "text-x-generic")
 				self.file_list.append([icon, file, size_str(file_info.st_size)])
 		self.file_window.set_model(self.file_list)
 		self.search_bar.set_text(os.getcwd())

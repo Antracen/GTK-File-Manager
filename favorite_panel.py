@@ -7,11 +7,14 @@ class Panel(Gtk.TreeView):
 	def __init__(self, parent):
 		super(Panel, self).__init__()
 
-		folder_icon = Gtk.Image(stock=Gtk.STOCK_DIRECTORY)
-		favorites_list = ["/home/wass", "/home/wass/Skrivbord", "/media/wass/My Passport"]
+		favorites_list = [
+			["user-home", "/home/wass"], 
+			["user-desktop", "/home/wass/Skrivbord"], 
+			["drive-harddisk", "/media/wass/My Passport"]
+		]
 		self.file_list = Gtk.ListStore(str, str)
 		for item in favorites_list:
-			self.file_list.append(["folder", item])
+			self.file_list.append(item)
 		self.set_model(self.file_list)
 
 		favorite_column = Gtk.TreeViewColumn("Favorites")
